@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Notes.findByDatecreated", query = "SELECT n FROM Notes n WHERE n.datecreated = :datecreated")
     , @NamedQuery(name = "Notes.findByTitle", query = "SELECT n FROM Notes n WHERE n.title = :title")
     , @NamedQuery(name = "Notes.findByContents", query = "SELECT n FROM Notes n WHERE n.contents = :contents")})
-public class Notes implements Serializable {
+public class Note implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,14 +52,14 @@ public class Notes implements Serializable {
     @Column(name = "contents")
     private String contents;
 
-    public Notes() {
+    public Note() {
     }
 
-    public Notes(Integer noteid) {
+    public Note(Integer noteid) {
         this.noteid = noteid;
     }
 
-    public Notes(Integer noteid, Date datecreated, String title, String contents) {
+    public Note(Integer noteid, Date datecreated, String title, String contents) {
         this.noteid = noteid;
         this.datecreated = datecreated;
         this.title = title;
@@ -108,10 +108,10 @@ public class Notes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Notes)) {
+        if (!(object instanceof Note)) {
             return false;
         }
-        Notes other = (Notes) object;
+        Note other = (Note) object;
         if ((this.noteid == null && other.noteid != null) || (this.noteid != null && !this.noteid.equals(other.noteid))) {
             return false;
         }
