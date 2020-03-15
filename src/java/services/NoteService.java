@@ -25,4 +25,9 @@ public class NoteService {
         return notesList;
     }
     
+    public Note get(int noteid) {
+        Note note = noteDB.get(noteid);
+        return note;
+    }
+    
 }

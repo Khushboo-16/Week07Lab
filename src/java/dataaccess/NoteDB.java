@@ -14,9 +14,7 @@ import models.Note;
  * @author 792807
  */
 public class NoteDB {
-    
-   
-    
+     
     public List<Note> getAll() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -27,4 +25,15 @@ public class NoteDB {
         }
     }
     
+    public Note get(int noteid) {
+         EntityManager em = DBUtil.getEmFactory().createEntityManager();
+         try{
+             Note note = em.find(Note.class, noteid);
+             return note;
+         } finally {
+             em.close();
+         }
+         
+        
+    }
 }

@@ -52,6 +52,7 @@ public class NoteServlet extends HttpServlet {
         NoteService service = new NoteService();
         List<Note> notesList = service.getAll();
         request.setAttribute("notesList", notesList);
+        request.setAttribute("mode", "view");
         processRequest(request, response);
     }
 
@@ -66,6 +67,19 @@ public class NoteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        NoteService service = new NoteService();
+        List<Note> notesList = service.getAll();
+        request.setAttribute("notesList", notesList);
+        request.setAttribute("mode", "edit");
+        processRequest(request, response);
+        
+        //Edit
+        if(request.getParameter("edit") != null) {
+            int noteID = Integer.parseInt(request.getParameter("noteID"));
+            Note note = service.get(noteID);
+            request.setAttribute("noteTitle", note.getTitle());
+            request.setAttribute("noteContents", note.getContents()); 
+        }
         processRequest(request, response);
     }
 
