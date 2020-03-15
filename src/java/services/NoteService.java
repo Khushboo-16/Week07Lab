@@ -7,7 +7,7 @@ package services;
 
 import dataaccess.NoteDB;
 import java.util.List;
-import model.Note;
+import models.Note;
 
 /**
  *

@@ -7,13 +7,15 @@ package dataaccess;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import model.Note;
+import models.Note;
 
 /**
  *
  * @author 792807
  */
 public class NoteDB {
+    
+   
     
     public List<Note> getAll() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
