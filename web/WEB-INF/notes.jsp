@@ -44,8 +44,9 @@
         <c:if test="${mode == 'edit'}">
             <h2>Edit Note</h2>
             <form method="post">
-                <input type="submit" name="delete" value="Delete Note" /><br />
-               <input type="text" name="noteTitle" value="${noteTitle}" /><br />
+                <input type="hidden" name="selectednoteid" value="${selectednoteid}" />
+                <input type="submit" name="delete" value="Delete Note"  /><br />
+                <input type="text" name="noteTitle" value="${noteTitle}" /><br />
                 <textarea name="noteContent">${noteContents}</textarea><br />
                 <input type="submit" name="save" value="Save" />
             </form>

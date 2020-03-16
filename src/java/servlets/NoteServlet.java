@@ -32,6 +32,9 @@ public class NoteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         NoteService service = new NoteService();
+         List<Note> notesList = service.getAll();
+         request.setAttribute("notesList", notesList);
          getServletContext().getRequestDispatcher("/WEB-INF/notes.jsp").forward(request, response);
         }
     
@@ -49,9 +52,6 @@ public class NoteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        NoteService service = new NoteService();
-        List<Note> notesList = service.getAll();
-        request.setAttribute("notesList", notesList);
         request.setAttribute("mode", "view");
         processRequest(request, response);
     }
@@ -71,16 +71,50 @@ public class NoteServlet extends HttpServlet {
         List<Note> notesList = service.getAll();
         request.setAttribute("notesList", notesList);
         request.setAttribute("mode", "edit");
-        processRequest(request, response);
+       
         
         //Edit
         if(request.getParameter("edit") != null) {
-            int noteID = Integer.parseInt(request.getParameter("noteID"));
-            Note note = service.get(noteID);
+            int editNoteID = Integer.parseInt(request.getParameter("noteID"));
+            Note note = service.get(editNoteID);
             request.setAttribute("noteTitle", note.getTitle());
             request.setAttribute("noteContents", note.getContents()); 
         }
+        
+        //save
+        if(request.getParameter("save") != null) {
+            int saveNoteID = Integer.parseInt(request.getParameter("selectednoteid"));
+            String title = request.getParameter("noteTitle");
+            String content = request.getParameter("noteContent");
+            
+            service.update(saveNoteID, title, content);
+            
+            request.setAttribute("mode", "view");
+        }
+        
+        //add
+        if(request.getParameter("add") != null) {
+            
+            String addTitle = request.getParameter("noteTitle");
+            String addContent = request.getParameter("noteContent");
+            
+            service.insert(addContent, addTitle);
+            
+            request.setAttribute("mode", "view");
+        }
+        
+        //delete
+        if(request.getParameter("delete") != null) {
+            int deleteNoteID = Integer.parseInt(request.getParameter("selectednoteid"));
+            
+            service.delete(deleteNoteID);
+            
+            request.setAttribute("mode", "view");
+        }
         processRequest(request, response);
+        
+        
+        
     }
 
     /**
