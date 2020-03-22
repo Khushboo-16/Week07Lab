@@ -3,7 +3,6 @@ CREATE DATABASE NotesDB;
 
 USE NotesDB;
 
-
 CREATE TABLE `notes` (
   `noteid` int(11) NOT NULL AUTO_INCREMENT,
   `datecreated` datetime NOT NULL,

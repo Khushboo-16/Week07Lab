@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +37,6 @@ public class NoteServlet extends HttpServlet {
          getServletContext().getRequestDispatcher("/WEB-INF/notes.jsp").forward(request, response);
         }
     
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -51,7 +49,6 @@ public class NoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         request.setAttribute("mode", "view");
         processRequest(request, response);
     }
@@ -72,22 +69,23 @@ public class NoteServlet extends HttpServlet {
         request.setAttribute("notesList", notesList);
         request.setAttribute("mode", "edit");
        
-        
         //Edit
         if(request.getParameter("edit") != null) {
             int editNoteID = Integer.parseInt(request.getParameter("noteID"));
             Note note = service.get(editNoteID);
+            request.setAttribute("selectedNoteId", note.getNoteid());
             request.setAttribute("noteTitle", note.getTitle());
             request.setAttribute("noteContents", note.getContents()); 
         }
         
         //save
         if(request.getParameter("save") != null) {
-            int saveNoteID = Integer.parseInt(request.getParameter("selectednoteid"));
-            String title = request.getParameter("noteTitle");
-            String content = request.getParameter("noteContent");
+            int saveNoteID = Integer.parseInt(request.getParameter("selectedNoteId"));
             
-            service.update(saveNoteID, title, content);
+            String saveTitle = request.getParameter("noteTitle");
+            String saveContent = request.getParameter("noteContent");
+            
+            service.update(saveNoteID, saveTitle, saveContent);
             
             request.setAttribute("mode", "view");
         }
@@ -105,16 +103,12 @@ public class NoteServlet extends HttpServlet {
         
         //delete
         if(request.getParameter("delete") != null) {
-            int deleteNoteID = Integer.parseInt(request.getParameter("selectednoteid"));
+            int deleteNoteID = Integer.parseInt(request.getParameter("selectedNoteId"));
             
-            service.delete(deleteNoteID);
-            
+            service.delete(deleteNoteID);  
             request.setAttribute("mode", "view");
         }
         processRequest(request, response);
-        
-        
-        
     }
 
     /**

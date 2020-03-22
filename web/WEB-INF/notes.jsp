@@ -4,8 +4,8 @@
     Author     : 792807
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,6 +33,7 @@
                 </tr>
             </c:forEach>
         </table>
+        
         <c:if test="${mode == 'view'}">
             <h2>Add Note</h2>
             <form method="post">
@@ -41,10 +42,11 @@
                 <input type="submit" name="add" value="Add" />
             </form>
         </c:if>
+            
         <c:if test="${mode == 'edit'}">
             <h2>Edit Note</h2>
             <form method="post">
-                <input type="hidden" name="selectednoteid" value="${selectednoteid}" />
+                <input type="hidden" name="selectedNoteId" value="${selectedNoteId}" />
                 <input type="submit" name="delete" value="Delete Note"  /><br />
                 <input type="text" name="noteTitle" value="${noteTitle}" /><br />
                 <textarea name="noteContent">${noteContents}</textarea><br />

@@ -45,11 +45,11 @@ public class NoteService {
     }
     
     public int insert(String contents, String title) {
-        Note note = new Note();
-        note.setDatecreated(new Date());
-        note.setTitle(title);
-        note.setContents(contents);
-        return noteDB.insert(note);
+        Note newNote = new Note();
+        newNote.setDatecreated(new Date());
+        newNote.setTitle(title);
+        newNote.setContents(contents);
+        return noteDB.insert(newNote);
     }
     
 }
